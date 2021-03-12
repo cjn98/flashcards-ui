@@ -1,28 +1,45 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar app color="primary">
+      <div class="d-flex align-center">
+        <router-link to="/" >
+          <div class="router-link"><h3>Flashcards</h3></div>
+        </router-link>
+      </div>
+      <v-spacer/>
+      <div class="text-center">
+        <v-row align="center" justify="center">
+          <router-link to="login">
+            <div class="router-link">Login</div>
+          </router-link>
+          <v-btn @click="register" class="ma-2">sign up</v-btn>
+        </v-row>
+      </div>
+    </v-app-bar>
+    <v-main>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+
+  components: {},
+
+  data: () => ({}),
+
+  methods: {
+    register() {
+      this.$router.push('register')
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  @import './assets/css/global.css';
 </style>
