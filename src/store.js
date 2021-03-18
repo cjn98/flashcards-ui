@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    cards: []
+    cards: [],
   },
   getters: {
     user: state => state.user,
@@ -14,13 +14,13 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_USER(state, data) {
-      state.user = {...data}
+      state.user = data
     },
     CLEAR_USER(state) {
       state.user = null
     },
     SET_CARDS(state, data) {
-      state.cards = [...data]
+      state.cards = data
     }
   },
   actions: {
@@ -30,8 +30,8 @@ export default new Vuex.Store({
     CLEAR_USER(context) {
       context.commit('CLEAR_USER')
     },
-    SET_CARDS(context) {
-      context.commit('SET_CARDS')
+    SET_CARDS(context, data) {
+      context.commit('SET_CARDS', data)
     }
   }
 })

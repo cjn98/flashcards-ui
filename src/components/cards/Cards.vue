@@ -1,15 +1,15 @@
 <template>
   <div class="card-container">
-    <Card v-for="card in cards" :cardData="card" :key="card.data"/>
+    <Deck v-for="card in cards" :cardData="card" :key="card.data"/>
   </div>
 </template>
 <script>
 import { getUserCardsUrl, jsonContentHeader } from '../../config/api'
-import Card from './Card.vue'
+import Deck from './Deck.vue'
 export default {
   name: 'Cards',
   components: {
-    Card
+    Deck
   },
   data() {
     return {
@@ -17,7 +17,6 @@ export default {
     }
   },
   mounted() {
-    // get userid
     const userCardsUrl = getUserCardsUrl(this.$store.getters.user._id)
     this.$http.get(
       userCardsUrl,
@@ -25,6 +24,7 @@ export default {
     ).then((res) => {
       const { data } = res
       this.cards = data.cards
+      this.$store.dispatch('SET_CARDS', data.cards)
     }).catch((err) => {
       console.log(err)
     })

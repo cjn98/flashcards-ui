@@ -1,11 +1,5 @@
 <template>
-  <v-card class="card ma-2 pa-2">
-    <v-col>
-      <v-row align="center" justify="center">
-        {{cardData.name}}
-      </v-row>
-    </v-col>
-  </v-card>
+  <div>single card</div>
 </template>
 <script>
 export default {
@@ -15,14 +9,14 @@ export default {
     return {
       front: true
     }
+  },
+  methods: {
+    editCards() {
+      console.log(this.cardData)
+      this.$router.push(`/cards/${this.cardData._id}`)
+    }
   }
 }
 </script>
 <style scoped>
-  .card {
-    width: 20rem;
-    height: 10rem;
-    display: flex;
-    flex-direction: column;
-  }
 </style>
