@@ -2,7 +2,7 @@
   <v-card class="home mt-4 pa-4">
     <v-container fill-height fluid>
       <v-row class="ma-4" align="center" justify="center">
-        <body-1>Welcome to Flashcards, a <a href="https://quizlet.com/">quizlet</a> clone built entirely with javascript.</body-1>
+        <div class="body-1">Welcome to Flashcards, a <a href="https://quizlet.com/">quizlet</a> clone built entirely with javascript.</div>
       </v-row>
       <v-row align="center" justify="center">
         <a href="https://vuetifyjs.com/">
@@ -50,5 +50,11 @@ export default {
   }
   a img { 
     display: block;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+  a img:hover {
+     box-shadow: 0.2rem 0.2rem 0.5rem #777777;
+     background-color: #555555;
   }
 </style>
