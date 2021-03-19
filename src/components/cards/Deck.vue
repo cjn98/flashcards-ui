@@ -1,10 +1,8 @@
 <template>
   <v-card @click="editCards" class="card ma-2 pa-2">
-    <v-col>
-      <v-row class="text-h6" align="center" justify="center">
-        {{cardData.name}}
-      </v-row>
-    </v-col>
+    <v-row class="text-h6" align="center" justify="center">
+      {{ cardData.name }}
+    </v-row>
   </v-card>
 </template>
 <script>

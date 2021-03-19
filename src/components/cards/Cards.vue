@@ -1,10 +1,15 @@
 <template>
-  <div class="card-container">
-    <Deck v-for="card in cards" :cardData="card" :key="card.data"/>
-  </div>
+  <v-container>
+    <v-row class="d-flex align-center justify-center text-h6">
+      <v-btn @click="newCardSet" color="primary" class="ma-4">new card set</v-btn>
+    </v-row>
+    <v-row class="d-flex align-center justify-center">
+      <Deck v-for="card in cards" :cardData="card" :key="card.data"/>
+    </v-row>
+  </v-container>
 </template>
 <script>
-import { getUserCardsUrl, jsonContentHeader } from '../../config/api'
+import { getUserCardsUrl, jsonContentHeader, getAuthToken } from '../../config/api'
 import Deck from './Deck.vue'
 export default {
   name: 'Cards',
@@ -17,10 +22,17 @@ export default {
     }
   },
   mounted() {
-    const userCardsUrl = getUserCardsUrl(this.$store.getters.user._id)
+    const { _id, token } = this.$store.getters.user
+    const userCardsUrl = getUserCardsUrl(_id)
+    const reqHeaders = {
+      headers: {
+        ...jsonContentHeader,
+        ...getAuthToken(token)
+      }
+    }
     this.$http.get(
       userCardsUrl,
-      jsonContentHeader
+      reqHeaders
     ).then((res) => {
       const { data } = res
       this.cards = data.cards
@@ -28,11 +40,13 @@ export default {
     }).catch((err) => {
       console.log(err)
     })
+  },
+  methods: {
+    newCardSet() {
+      this.$router.push('/cards/create')
+    }
   }
 }
 </script>
 <style scoped>
-  .card-container {
-    display: flex;
-  }
 </style>

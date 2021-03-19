@@ -5,7 +5,7 @@ import Login from './components/user/Login.vue'
 import Register from './components/user/Register.vue'
 import Activate from './components/user/Activate.vue'
 import Cards from './components/cards/Cards.vue'
-import CardsEditor from './components/cards/CardsEditor.vue'
+import CardsManager from './components/cards/CardsManager.vue'
 
 const routes = [
   { path: '/', component: Home},
@@ -13,7 +13,8 @@ const routes = [
   { path: '/register', component: Register },
   { path: '/activate/:id', component: Activate },
   { path: '/cards', component: Cards },
-  { path: '/cards/:id', component: CardsEditor },
+  { path: '/cards/create', component: CardsManager },
+  { path: '/cards/:id', component: CardsManager },
 ]
 
 const router = new VueRouter({
