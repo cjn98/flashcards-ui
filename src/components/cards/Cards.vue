@@ -4,7 +4,8 @@
       <v-btn @click="newCardSet" color="primary" class="ma-4">new card set</v-btn>
     </v-row>
     <v-row class="d-flex align-center justify-center">
-      <Deck v-for="card in cards" :cardData="card" :key="card.data"/>
+      <div v-if="showEmptyMessage">No card sets created yet. Click the button above to create one.</div>
+      <Deck v-else v-for="card in cards" :cardData="card" :key="card.data"/>
     </v-row>
   </v-container>
 </template>
@@ -44,6 +45,11 @@ export default {
   methods: {
     newCardSet() {
       this.$router.push('/cards/create')
+    }
+  },
+  computed: {
+    showEmptyMessage() {
+      return this.$store.getters.cards.length === 0
     }
   }
 }
