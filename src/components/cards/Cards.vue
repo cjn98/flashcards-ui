@@ -5,7 +5,7 @@
     </v-row>
     <v-row class="d-flex align-center justify-center">
       <div v-if="showEmptyMessage">No card sets created yet. Click the button above to create one.</div>
-      <Deck v-else v-for="card in cards" :cardData="card" :key="card.data"/>
+      <Deck v-else v-for="card in getCards" :cardData="card" :key="card.data"/>
     </v-row>
   </v-container>
 </template>
@@ -16,11 +16,6 @@ export default {
   name: 'Cards',
   components: {
     Deck
-  },
-  data() {
-    return {
-      cards: null
-    }
   },
   mounted() {
     const { _id, token } = this.$store.getters.user
@@ -36,7 +31,6 @@ export default {
       reqHeaders
     ).then((res) => {
       const { data } = res
-      this.cards = data.cards
       this.$store.dispatch('SET_CARDS', data.cards)
     }).catch((err) => {
       console.log(err)
@@ -50,6 +44,9 @@ export default {
   computed: {
     showEmptyMessage() {
       return this.$store.getters.cards.length === 0
+    },
+    getCards() {
+      return this.$store.getters.cards
     }
   }
 }
