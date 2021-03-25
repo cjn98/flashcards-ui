@@ -1,32 +1,60 @@
 <template>
-  <v-card class="login mt-2">
-    <h1>Login</h1>
-    <div class="ma-1 field">
-      <div>Username:</div>
-      <input v-model="username" class="pa-1" type="text"/>
-    </div>
-    <div class="ma-1 field">
-      <div>Password:</div>
-      <input v-model="password" class="pa-1" type="password"/>
-    </div>
-    <v-btn @click="login" class="mt-4" color="primary">Login</v-btn>
-    <div class="mt-4">Don't have an account?</div>
-    <router-link to="register">Register</router-link>
-  </v-card>
+  <v-container>
+    <v-row class="justify-center">
+      <v-col cols="4">
+        <v-card>
+          <v-form class="d-flex flex-column pa-4 ma-4">
+            <div class="text-center text-h6">Login</div>
+            <div class="text-center" v-for="(error, key) in errors" :key="key">{{ error  }}</div>
+            <div class="text-center" v-if="success">{{ success }}</div>
+            <v-text-field
+              v-model="username"
+              :rules="usernameRules"
+              label="Username"
+              required
+            />
+            <v-text-field
+              v-model="password"
+              :rules="passwordRules"
+              type="password"
+              label="Password"
+              required
+            />
+            <v-btn 
+              @click="loginUser" 
+              class="ma-auto" 
+              color="primary" 
+              :disabled="!isValidForm"
+            >
+              Login
+            </v-btn>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container> 
 </template>
+
 <script>
 import { loginUrl, jsonContentHeader } from '../../config/api'
 export default {
-  
   name: 'Login',
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      usernameRules: [
+        v => !!v || 'username is required',
+      ],
+      passwordRules: [
+        v => !!v || 'password is required',
+      ],
+      errors: [],
+      success: null
     }
   },
-  methods:{
-    login() {
+  methods: {
+    loginUser() {
       const reqBody = {
         credential: {
           username: this.username
@@ -43,8 +71,14 @@ export default {
         this.$router.push('/cards')
       })
       .catch(err => {
-        console.log(err)
+        const { errorList } = err.response.data
+        this.errors = errorList
       })
+    }
+  },
+   computed: {
+    isValidForm() {
+        return this.username !== '' && this.password !== ''
     }
   }
 }
