@@ -1,26 +1,55 @@
 <template>
-  <div class="d-flex justify-center align-center flex-column">
-    <v-card class="pa-10 ma-4 d-flex flex-column justify-center align-center">
-      <div class="d-flex flex-column">        
-        <v-text-field v-model="cardData.name" label="name" class="mr-4"/>
-        <v-text-field v-model="cardData.description" label="description"/>
-      </div>
-      <v-divider v-if="showCards" dark class="divider mb-2"/>
-      <v-card v-for="(card, i) in cardData.cardList" 
-        :key="i" 
-        :elevation="10" 
-        class="d-flex align-center card-list pa-4 ma-2"
-      >
-        <div class="mr-4">{{i + 1}}</div>
-        <v-text-field v-model="card.front" label="front"/>
-        <v-text-field v-model="card.back" label="back" class="ml-4"/>
-        <v-icon class="ml-2" @click="deleteCard(i)">{{ deleteIcon }}</v-icon>
-      </v-card>
-      <v-btn @click="addCard" color="primary" class="mt-4">add card</v-btn>
-    </v-card>
-    <v-btn @click="saveCardSet" color="primary">save</v-btn>
+  <v-container class="d-flex flex-column">
+    <v-row class="justify-center mb-4">
+      <v-col cols="8">
+        <v-card class="d-flex flex-column pa-8">
+          <v-text-field
+            v-model="cardData.name" 
+            label="name" 
+            class="mr-4"
+          />
+          <v-textarea
+            v-model="cardData.description" 
+            filled 
+            auto-grow
+            row-height="8" 
+            label="description"
+          />
+          <v-card 
+            v-for="(card, i) in cardData.cardList" 
+            :key="i" 
+            :elevation="8"
+            outlined
+            class="d-flex align-center justify-center px-4 my-4"
+          >
+            <div>{{i + 1}}.</div>
+            <v-textarea 
+              filled 
+              auto-grow 
+              row-height="8"
+              v-model="card.front" 
+              class="flex-grow-1 ml-4 pt-6" 
+              label="front"
+            />
+            <v-textarea 
+              filled 
+              auto-grow 
+              row-height="8"
+              v-model="card.back" 
+              class="flex-grow-1 ml-4 pt-6" 
+              label="back"
+            />
+            <v-icon class=" ml-4" @click="deleteCard(i)">{{ deleteIcon }}</v-icon>
+          </v-card>
+          <v-btn @click="addCard" color="primary" class="ma-auto">add card</v-btn>
+        </v-card>
+        <div class="d-flex mt-4">
+          <v-btn @click="saveCardSet" class="ma-auto" color="primary">save</v-btn>
+        </div>
+      </v-col>
+    </v-row>
     <v-snackbar :timeout="2000" v-model="showSuccess">{{ snackbarText }}</v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -85,17 +114,9 @@ export default {
         console.log(err)
       }) 
     }
-  },
-  computed: {
-    showCards() {
-      return this.cardData.cardList.length > 0
-    }
   }
 }
 </script>
 
 <style scoped>
-  .divider {
-    width: 100%
-  }
 </style>

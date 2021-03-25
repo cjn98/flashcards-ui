@@ -84,16 +84,4 @@ export default {
 }
 </script>
 <style scoped>
-  .login {
-    width: 33%;
-    display: flex;
-    margin: auto;
-    flex-direction: column;
-    padding : 1rem;
-    align-items: center;
-  }
-  .login input {
-    background-color: white;
-    border-radius: 0.25rem;
-  }
 </style>
