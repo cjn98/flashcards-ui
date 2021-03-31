@@ -9,6 +9,9 @@
       </v-card>
     </v-row>
     <v-row class="d-flex justify-center align-center mt-4">
+      <div>{{ `${currentCard + 1}/${cardData.cardList.length}`}}</div>
+    </v-row>
+    <v-row class="d-flex justify-center align-center mt-4">
       <v-btn @click="prevCard" class="mr-4">&lt;</v-btn>
       <v-btn @click="editCards"><v-icon>{{ editIcon }}</v-icon></v-btn>
       <v-btn @click="nextCard" class="ml-4">&gt;</v-btn>
@@ -30,9 +33,11 @@ export default {
   },
   methods: {
     nextCard() {
+      this.flip = true
       if (this.currentCard < this.cardData.cardList.length - 1) this.currentCard++
     },
     prevCard() {
+      this.flip = true
       if (this.currentCard > 0) this.currentCard--
     },
     turnOver() {

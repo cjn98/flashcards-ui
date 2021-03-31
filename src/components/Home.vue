@@ -1,29 +1,32 @@
 <template>
-  <v-card class="home mt-4 pa-4">
-    <v-container fill-height fluid>
-      <v-row class="ma-4" align="center" justify="center">
-        <div class="body-1">Welcome to Flashcards, a <a href="https://quizlet.com/">quizlet</a> clone built entirely with javascript.</div>
-      </v-row>
-      <v-row align="center" justify="center">
-        <a href="https://vuetifyjs.com/">
-          <img :src="vuetify"/>
-        </a>
-        <a href="https://vuejs.org/">
-          <img :src="vuejs"/>
-        </a>
-        <a href="https://expressjs.com/">
-          <img :src="express"/>
-        </a>
-        <a href="https://nodejs.org/">
-          <img :src="node"/>
-        </a>
-        <a href="https://www.mongodb.com/">
-          <img :src="mongo"/>
-        </a>
-      </v-row>
-    </v-container>
-  </v-card>
+  <v-container>
+    <v-row class="justify-center">
+      <v-col cols="8">
+        <v-card class="d-flex flex-column pa-4">
+          <div class="body-1 text-center">Welcome to Flashcards, a <a href="https://quizlet.com/">quizlet</a> clone built entirely with javascript.</div>
+          <div class="d-flex justify-center">
+            <a href="https://vuetifyjs.com/">
+              <img :src="vuetify"/>
+            </a>
+            <a href="https://vuejs.org/">
+              <img :src="vuejs"/>
+            </a>
+            <a href="https://expressjs.com/">
+              <img :src="express"/>
+            </a>
+            <a href="https://nodejs.org/">
+              <img :src="node"/>
+            </a>
+            <a href="https://www.mongodb.com/">
+              <img :src="mongo"/>
+            </a>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+
 <script>
 export default {
   name: 'Home',
@@ -38,23 +41,18 @@ export default {
   }
 }
 </script>
+
 <style scoped>
   img {
     max-width: 10rem;
     max-height: 5rem;
-    margin: 1rem;
-  }
-  .home {
-    margin: auto;
-    width: 50%;
-  }
-  a img { 
+    margin: 1rem; 
     display: block;
     padding: 1rem;
     border-radius: 1rem;
   }
-  a img:hover {
-     box-shadow: 0.2rem 0.2rem 0.5rem #777777;
-     background-color: #555555;
+  img:hover {
+    box-shadow: 0.2rem 0.2rem 0.5rem #777777;
+    background-color: #555555;
   }
 </style>
