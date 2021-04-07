@@ -59,6 +59,6 @@ export default {
 <style scoped>
   .card {
     width: 30rem;
-    height: 15rem;
+    min-height: 15rem;
   }
 </style>
