@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-row class="d-flex justify-center align-center mt-4">
-      <div>{{cardData.name}}</div>
+      <div class="ma-4 text-h4">{{cardData.name}}</div>
+    </v-row>
+    <v-row class="d-flex justify-center align-center mt-4">
+      <v-btn @click="editCards"><v-icon>{{ editIcon }}</v-icon></v-btn>
+      <v-btn @click="resetCards" class="ml-4">reset cards</v-btn>
     </v-row>
     <v-row class="d-flex justify-center align-center">
       <v-card @click="turnOver" class="card d-flex justify-center align-center  pa-5 mt-5">
@@ -9,11 +13,11 @@
       </v-card>
     </v-row>
     <v-row class="d-flex justify-center align-center mt-4">
-      <div>{{ `${currentCard + 1}/${cardData.cardList.length}`}}</div>
+      <div>{{ getNumCardsLeft }}</div>
     </v-row>
     <v-row class="d-flex justify-center align-center mt-4">
       <v-btn @click="prevCard" class="mr-4">&lt;</v-btn>
-      <v-btn @click="editCards"><v-icon>{{ editIcon }}</v-icon></v-btn>
+      <v-btn @click="setAsideCard">set aside this card</v-btn>
       <v-btn @click="nextCard" class="ml-4">&gt;</v-btn>
     </v-row>
   </div>
@@ -28,17 +32,26 @@ export default {
     return {
       currentCard: 0,
       flip: true,
-      editIcon: mdiPencil
+      editIcon: mdiPencil,
+      setAsideCards: []
     }
   },
   methods: {
     nextCard() {
       this.flip = true
-      if (this.currentCard < this.cardData.cardList.length - 1) this.currentCard++
+      let nextIndex = this.currentCard + 1
+      while (this.setAsideCards.includes(nextIndex)) {
+        nextIndex++
+      }
+      if (nextIndex < this.cardData.cardList.length) this.currentCard = nextIndex
     },
     prevCard() {
       this.flip = true
-      if (this.currentCard > 0) this.currentCard--
+      let prevIndex = this.currentCard - 1
+      while (this.setAsideCards.includes(prevIndex)) {
+        prevIndex--
+      }
+      if (prevIndex >= 0) this.currentCard = prevIndex
     },
     turnOver() {
       this.flip = !this.flip
@@ -46,12 +59,29 @@ export default {
     editCards() {
       this.$emit('editMode', true)
     },
+    setAsideCard() {
+      this.setAsideCards.push(this.currentCard)
+      this.nextCard()
+    },
+    resetCards() {
+      this.setAsideCards = []
+      this.currentCard = 0
+    }
   },
   computed: {
     getCard() {
       const card = this.cardData?.cardList[this.currentCard]
       return this.flip ? card?.front : card?.back
     },
+    getNumCardsLeft() {
+      return `${this.currentCard + 1}/${this.cardData.cardList.length}`
+    },
+    getPrevDisabled() {
+      return this.currentCard === 0
+    },
+    getNextDisabled() {
+      return this.currentCard === this.cardData.cardList.length - 1
+    }
   }
 }
 </script>

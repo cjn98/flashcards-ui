@@ -44,6 +44,7 @@
           <v-btn @click="addCard" color="primary" class="ma-auto">add card</v-btn>
         </v-card>
         <div class="d-flex mt-4">
+          <v-btn @click="studyCards" class="ma-auto" color="primary">study</v-btn>
           <v-btn @click="saveCardSet" class="ma-auto" color="primary">save</v-btn>
         </div>
       </v-col>
@@ -113,7 +114,10 @@ export default {
       }).catch((err) => {
         console.log(err)
       }) 
-    }
+    },
+    studyCards() {
+      this.$emit('editMode', false)
+    },
   }
 }
 </script>

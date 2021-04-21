@@ -1,6 +1,6 @@
 <template>
   <div>
-    <card-editor v-if="edit" :cardData="cardData"/>
+    <card-editor v-if="edit" :cardData="cardData" @editMode="editModeHandler"/>
     <card-viewer v-else :cardData="cardData" @editMode="editModeHandler"/>
   </div>
 </template>
