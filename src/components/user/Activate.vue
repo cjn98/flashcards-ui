@@ -8,7 +8,7 @@ export default {
   methods: {
     makeActivationRequest() {
       const reqBody = {
-        activation_token: this.$route.params.id
+        token: this.$route.params.id
       }
       this.$http.post(
         activateUrl,
