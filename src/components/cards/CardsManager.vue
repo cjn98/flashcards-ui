@@ -1,7 +1,7 @@
 <template>
   <div>
-    <card-editor v-if="edit" :cardData="cardData" @editMode="editModeHandler"/>
-    <card-viewer v-else :cardData="cardData" @editMode="editModeHandler"/>
+    <card-editor v-if="editMode" :cardData="cardData"/>
+    <card-viewer v-else :cardData="cardData"/>
   </div>
 </template>
 
@@ -21,20 +21,16 @@ export default {
         description: '',
         cardList: []
       },
-      edit: false,
     }
   },
   mounted() {
     if (this.$route.params.id) {
       this.cardData = this.$store.getters.cards.find(cards => cards._id === this.$route.params.id)
-    } 
-    else {
-      this.edit = true
-    } 
+    }
   },
-  methods: {
-    editModeHandler(isEditMode) {
-      this.edit = isEditMode
+  computed: {
+    editMode() {
+      return this.$store.getters.editMode
     }
   }
 }

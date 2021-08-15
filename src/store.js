@@ -7,10 +7,12 @@ export default new Vuex.Store({
   state: {
     user: null,
     cards: [],
+    editMode: false
   },
   getters: {
     user: state => state.user,
-    cards: state => state.cards
+    cards: state => state.cards,
+    editMode: state => state.editMode,
   },
   mutations: {
     SET_USER(state, data) {
@@ -21,6 +23,9 @@ export default new Vuex.Store({
     },
     SET_CARDS(state, data) {
       state.cards = data
+    },
+    SET_EDIT_MODE(state, data) {
+      state.editMode = data
     }
   },
   actions: {
@@ -32,6 +37,9 @@ export default new Vuex.Store({
     },
     SET_CARDS(context, data) {
       context.commit('SET_CARDS', data)
+    },
+    SET_EDIT_MODE(context, data) {
+      context.commit('SET_EDIT_MODE', data)
     }
   }
 })

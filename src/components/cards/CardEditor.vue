@@ -116,7 +116,7 @@ export default {
       }) 
     },
     studyCards() {
-      this.$emit('editMode', false)
+      this.$store.dispatch('SET_EDIT_MODE', false)
     },
   }
 }

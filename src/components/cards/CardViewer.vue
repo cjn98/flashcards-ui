@@ -57,7 +57,7 @@ export default {
       this.flip = !this.flip
     },
     editCards() {
-      this.$emit('editMode', true)
+      this.$store.dispatch('SET_EDIT_MODE', true)
     },
     setAsideCard() {
       this.setAsideCards.push(this.currentCard)
